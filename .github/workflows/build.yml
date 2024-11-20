@@ -1,0 +1,21 @@
+name: Build
+on:
+  push:
+    branches:
+      - main
+jobs:
+  sonarcloud:
+    name: SonarQube Cloud
+    runs-on: ubuntu-latest
+    steps:
+      - uses: actions/checkout@v4
+      - name: SonarQube Cloud Scan
+        uses: SonarSource/sonarcloud-github-action@v3.1
+        with:
+          projectBaseDir: mysql/
+          args: >
+            -Dsonar.organization=gabinl21
+            -Dsonar.projectKey=GabinL21_sonar-community-mysql-helm
+            -Dsonar.verbose=true
+        env:
+          SONAR_TOKEN: ${{ secrets.SONAR_TOKEN }}
